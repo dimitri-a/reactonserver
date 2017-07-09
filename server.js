@@ -1,13 +1,25 @@
 import express from 'express';
+import ReactDOMServer from 'react-dom/server';
+import {match, RoutingContext, Route, IndexRoute} from 'react-router';
 
 let app = express();
 app.set('port', (process.env.PORT || 3000))
 
-app.get('*', (req, res) => {
-   //todo remove
-   debugger;
+app.get('/hello', (req, res) => {
+    //todo remove
+    debugger;
 
-   res.end('<p>hello from server</p>')
+    match({routes, location: req.url}, (error, redirectLocation, renderProps) => {
+
+        const reactMarkup = ReactDOMServer.renderToStaticMarkup(<RoutingContext {...renderProps} />)
+
+        res.locals.reactMarkup = reactMarkup
+
+        console.log('req=', req);
+
+        res.end('<p>hello from server</p>')
+    });
+
 })
 
 app.listen(app.get('port'))
