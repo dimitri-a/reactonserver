@@ -1,7 +1,6 @@
 import express from 'express';
 import ReactDOMServer from 'react-dom/server';
-import {match, RoutingContext, Route, IndexRoute} from 'react-router';
-
+import { match, RoutingContext } from 'react-router';
 import routes from './routes';
 
 let app = express();
